@@ -43,33 +43,3 @@ module.exports = {
   generateProposal,
   generateMid
 };
-import { generateThesisByType } from "../service/ai.service.js";
-
-async function generateByType(req, res, next, type) {
-  try {
-    const { modelProvider = "deepseek", requirementText = "" } = req.body || {};
-    if (!requirementText) {
-      return res.status(400).json({ message: "requirementText 不能为空" });
-    }
-    const content = await generateThesisByType({
-      modelProvider,
-      requirementText,
-      type
-    });
-    res.json({ type, modelProvider, content });
-  } catch (error) {
-    next(error);
-  }
-}
-
-export function generateThesis(req, res, next) {
-  return generateByType(req, res, next, "thesis");
-}
-
-export function generateProposal(req, res, next) {
-  return generateByType(req, res, next, "proposal");
-}
-
-export function generateMid(req, res, next) {
-  return generateByType(req, res, next, "mid");
-}

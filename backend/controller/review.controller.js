@@ -46,21 +46,3 @@ async function aiReview(req, res) {
 module.exports = {
   aiReview
 };
-import { reviewParagraphs } from "../service/ai.service.js";
-
-export async function aiReview(req, res, next) {
-  try {
-    const { modelProvider = "deepseek", text = "" } = req.body || {};
-    if (!text) {
-      return res.status(400).json({ message: "text 不能为空" });
-    }
-    const items = await reviewParagraphs({ modelProvider, text });
-    res.json({
-      message: "评审完成",
-      modelProvider,
-      items
-    });
-  } catch (error) {
-    next(error);
-  }
-}

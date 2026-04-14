@@ -27,37 +27,7 @@ router.post("/ai/review", aiReview);
 router.post("/chart/generate", generateChart);
 router.get("/export/word", exportWord);
 router.get("/export/code", exportCode);
+router.post("/export/code", exportCode);
 router.get("/history", (req, res) => res.json({ items: listHistory() }));
 
 module.exports = router;
-import { Router } from "express";
-import { upload, parseWord } from "../controller/upload.controller.js";
-import {
-  generateMid,
-  generateProposal,
-  generateThesis
-} from "../controller/generate.controller.js";
-import { aiReview } from "../controller/review.controller.js";
-import { generateChart } from "../controller/chart.controller.js";
-import {
-  exportCodeFile,
-  exportPdfFile,
-  exportWordFile
-} from "../controller/export.controller.js";
-
-const router = Router();
-
-router.post("/upload/word", upload.single("file"), parseWord);
-
-router.post("/generate/thesis", generateThesis);
-router.post("/generate/proposal", generateProposal);
-router.post("/generate/mid", generateMid);
-
-router.post("/ai/review", aiReview);
-router.post("/chart/generate", generateChart);
-
-router.get("/export/word", exportWordFile);
-router.get("/export/pdf", exportPdfFile);
-router.get("/export/code", exportCodeFile);
-
-export default router;
